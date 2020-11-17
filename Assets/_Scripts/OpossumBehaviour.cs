@@ -23,6 +23,8 @@ public class OpossumBehaviour : MonoBehaviour
     public bool isGroundAhead;
     public bool onRamp;
     public RampDirection rampDirection;
+
+    public LineOfSight opossumLOS;
    
 
     // Start is called before the first frame update
@@ -38,8 +40,23 @@ public class OpossumBehaviour : MonoBehaviour
         _LookInFront();
         _LookAhead();
         _Move();
+        if(_hasLOS())
+        {
+            Debug.Log("opossum can see player");
+        }
     }
 
+    private bool _hasLOS()
+    {
+        if (opossumLOS.colliders.Count > 0)
+        {
+            if (opossumLOS.collidesWith.gameObject.name == "Player" && opossumLOS.colliders[0].gameObject.name == "Player")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void _LookInFront()
     {
         var wallHit = Physics2D.Linecast(transform.position, lookInFrontPoint.position, collisionWallLayer);

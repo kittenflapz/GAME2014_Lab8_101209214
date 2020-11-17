@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
 public class LineOfSight : MonoBehaviour
 {
     public Collider2D collidesWith;
