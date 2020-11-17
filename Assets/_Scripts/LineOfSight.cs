@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LineOfSight : MonoBehaviour
+{
+    public Collider2D collidesWith;
+    public ContactFilter2D contactFilter;
+    public List<Collider2D> colliders;
+    private BoxCollider2D LOSCollider;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        LOSCollider = GetComponent<BoxCollider2D>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        // Every frame, fill up the colliders list with everything that we specify from the contact filter
+        Physics2D.GetContacts(LOSCollider, contactFilter, colliders);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        collidesWith = other;
+    }
+}
